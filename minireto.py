@@ -151,23 +151,29 @@ if sidebar.checkbox('Visualizar Dataset?'):
 
     dsg1 = deserrate()
     fig3, ax3 = plt.subplots()
-    ax3.pie(dsg1.values(),labels=dsg1.keys())
+    ax3.pie(dsg1.values(),labels=dsg1.keys(), autopct='%1.0f%%')
     ax3.legend(title = "Categorías:")
     ax3.set_title('Mayores indices de deserción por Hometowns')
     cg1.pyplot(fig3)
+    cg1.markdown('En el caso de esta gráfica, la cual grafica un promedio de los índices de deserción más grandes por ciudad, podemos observar que la ciudad que cuenta con la tasa de deserción más grande es Springfield, seguida por Lebanon, Franklin, Washington y, por último, Clinton.')
 
     y,x = deserrate2()
     fig4, ax4 = plt.subplots()
     ax4.plot(x, y, '-')
     ax4.set_title('Niveles de deserción por Edades')
     cg2.pyplot(fig4)
+    cg2.text(' ')
+    cg2.text(' ')
+    cg2.markdown('En el caso de esta gráfica, no se observa una relación entre la tasa de deserción y las edades de las personas de la base de datos. Se puede ver que personas de todas las edades presentan una alta tasa de deserción.')
     
     y2,x2 = deserrate3()
     fig5, ax5 = plt.subplots()
     ax5.plot(x2, y2,'g')
     ax5.set_title('Niveles de deserción vs Años de servicio')
     cg3.pyplot(fig5)
-
+    cg3.text(' ')
+    cg3.text(' ')
+    cg3.markdown('Por último, podemos observar en esta gráfica que los años de servicio si podrían guardar una relación con la tasa de deserción. Se puede observar que, mientras menos años de servicio tenga una persona, más alta es la tasa de deserción y, a pesar de que puede presentar un pico al rondar los 25-30 años, la tendencia va hacia abajo.')
 
 
 

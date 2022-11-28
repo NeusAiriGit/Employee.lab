@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import matplotlib.pyplot as plt
+import math as mt
+import statistics as stat
 
 #-----------Constantes y dtos
 nameC = "Employees.csv"
@@ -69,6 +71,21 @@ def filter_data_by_UTF(UnitF):
     filtered_data_UTF = df[df['Unit'] == UnitF] 
     return filtered_data_UTF
 
+@st.cache(suppress_st_warning=True)
+def deserrate():
+    dfHtd = dict(df.Hometown[df['Attrition_rate'] <= stat.mean(df['Attrition_rate'].values)].value_counts())
+    return dfHtd
+
+def deserrate2():
+    dfAd = dict(df.Age.convert_dtypes()[df['Attrition_rate'] <= stat.mean(df['Attrition_rate'].values)].value_counts())
+    dfA = dict(sorted(dfAd.items()))
+    return dfA.values(), dfA.keys()
+
+def deserrate3():
+    dfAd = dict(df.Time_of_service.convert_dtypes()[df['Attrition_rate'] <= stat.mean(df['Attrition_rate'].values)].value_counts())
+    dfA = dict(sorted(dfAd.items()))
+    return dfA.values(), dfA.keys()
+
 #----------Sidebar
 sidebar.title(titleS)
 sidebar.header(descript)
@@ -130,6 +147,28 @@ if sidebar.checkbox('Visualizar Dataset?'):
     ax2.set_title('Empleados por Unidad')
     st.pyplot(fig2)
     st.markdown('')
+    cg1, cg2, cg3 = st.columns([1,1,1])
+
+    dsg1 = deserrate()
+    fig3, ax3 = plt.subplots()
+    ax3.pie(dsg1.values(),labels=dsg1.keys())
+    ax3.legend(title = "Categorías:")
+    ax3.set_title('Mayores indices de deserción por Hometowns')
+    cg1.pyplot(fig3)
+
+    y,x = deserrate2()
+    fig4, ax4 = plt.subplots()
+    ax4.plot(x, y, '-')
+    ax4.set_title('Niveles de deserción por Edades')
+    cg2.pyplot(fig4)
+    
+    y2,x2 = deserrate3()
+    fig5, ax5 = plt.subplots()
+    ax5.plot(x2, y2,'g')
+    ax5.set_title('Niveles de deserción vs Años de servicio')
+    cg3.pyplot(fig5)
+
+
 
 
 if sidebar.button('Reiniciar DataFrame'):

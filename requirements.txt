@@ -1,7 +1,8 @@
+streamlit
 pandas
 numpy
-matplotlib
-streamlit
 plotly
+matplotlib
+plotly.express
+matplotlib.pyplot
 statistics
-math
